@@ -39,7 +39,7 @@ export default function CreateStoryModal({ isOpen, onClose, onSuccess }: CreateS
                 delete payload.media_url;
             }
 
-            await api.post('/stories', payload);
+            await api.post('stories', payload);
 
             // Reset form
             setFormData({
