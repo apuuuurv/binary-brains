@@ -33,7 +33,7 @@ export default function AuthPage() {
         loginData.append('username', formData.email);
         loginData.append('password', formData.password);
         
-        const res = await api.post('/auth/login', loginData);
+        const res = await api.post('auth/login', loginData);
         console.log("✅ FRONTEND: Login response received:", res.status);
         
         localStorage.setItem('access_token', res.data.access_token);
@@ -41,7 +41,7 @@ export default function AuthPage() {
         navigate('/dashboard');
       } else {
         console.log("🔍 FRONTEND: Attempting signup for:", formData.email);
-        await api.post('/auth/signup', formData);
+        await api.post('auth/signup', formData);
         toast.success(t('auth.toast_register_success'));
         setIsLogin(true);
       }

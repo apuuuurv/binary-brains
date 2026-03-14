@@ -3,8 +3,15 @@ import os
 import warnings
 from dotenv import load_dotenv
 
-# Force load latest .env (overriding old values in case uvicorn was running before .env changed)
-load_dotenv(override=True)
+# Load .env only if it exists, without overriding existing system environment variables
+load_dotenv()
+
+# Debug: Print configured MongoDB connection (sanitized)
+mongo_uri = os.getenv("MONGO_URI", "NOT_SET")
+if mongo_uri.startswith("mongodb+srv"):
+    print("✅ MONGO_URI is set to an external cluster.")
+else:
+    print(f"⚠️ MONGO_URI is using local/default: {mongo_uri}")
 
 # Silence noisy ML warnings
 os.environ["LOKY_MAX_CPU_COUNT"] = "4"  # Fix for wmic deprecation on Windows

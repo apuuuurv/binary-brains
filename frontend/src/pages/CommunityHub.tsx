@@ -53,7 +53,7 @@ export default function CommunityHub() {
             if (selectedCrop) params.append('crop', selectedCrop);
             if (selectedState) params.append('state', selectedState);
 
-            const response = await api.get(`/stories?${params.toString()}`);
+            const response = await api.get(`stories?${params.toString()}`);
             setStories(response.data);
         } catch (error) {
             console.error("Failed to fetch stories:", error);
@@ -68,7 +68,7 @@ export default function CommunityHub() {
 
     const handleUpvote = async (storyId: string) => {
         try {
-            const response = await api.post(`/stories/${storyId}/upvote`);
+            const response = await api.post(`stories/${storyId}/upvote`);
 
             // Optimitically update the UI
             setStories(stories.map(s => {

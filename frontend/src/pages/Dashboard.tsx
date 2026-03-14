@@ -117,7 +117,7 @@ export default function Dashboard() {
 
   const fetchProfile = async () => {
     try {
-      const res = await api.get('/farmers/me');
+      const res = await api.get('farmers/me');
       setFarmer(res.data);
 
       const d = res.data;
@@ -153,7 +153,7 @@ export default function Dashboard() {
 
   const fetchMonitoredSchemes = async () => {
     try {
-      const res = await api.get('/monitoring/system-status');
+      const res = await api.get('monitoring/system-status');
       // system-status returns an object with details. we want the recent_updates array.
       if (res.data && res.data.recent_updates) {
         setMonitoredSchemes(res.data.recent_updates);
@@ -184,7 +184,7 @@ export default function Dashboard() {
         primary_crops: formData.primary_crops.split(',').map((c: string) => c.trim()).filter((c: string) => c !== ""),
       };
 
-      await api.put('/farmers/me', payload);
+      await api.put('farmers/me', payload);
       toast.success(t('dashboard.toast_profile_updated'));
       fetchProfile();
       setActiveTab('home');
@@ -209,7 +209,7 @@ export default function Dashboard() {
       if (uploadType === 'Policy_Document') {
         // Special case for Admin Policy testing
         toast.loading("Ingesting policy document via AI Engine...");
-        const res = await api.post('/monitoring/test/policy-ingest', docData, {
+        const res = await api.post('monitoring/test/policy-ingest', docData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         toast.dismiss();
@@ -217,7 +217,7 @@ export default function Dashboard() {
         console.log("Extracted Rules:", res.data.extracted_rules);
       } else {
         docData.append('doc_type', uploadType);
-        const res = await api.post('/upload', docData, {
+        const res = await api.post('upload', docData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
 
@@ -606,7 +606,7 @@ export default function Dashboard() {
                             onClick={async () => {
                               toast.loading("Checking portals in background...");
                               try {
-                                await api.post('/monitoring/refresh-schemes');
+                                await api.post('monitoring/refresh-schemes');
                                 await fetchMonitoredSchemes();
                                 toast.dismiss();
                                 toast.success("Refresh complete. Portals checked.");
@@ -1062,7 +1062,7 @@ export default function Dashboard() {
                               e.preventDefault();
                               toast.loading("Analyzing soil & weather data...");
                               try {
-                                const res = await api.post('/farmers/recommend-crop', formData);
+                                const res = await api.post('farmers/recommend-crop', formData);
                                 toast.dismiss();
                                 if (res.data && res.data.recommended_crop) {
                                   toast.success(`Recommended Crop: ${res.data.recommended_crop.toUpperCase()}`, { duration: 5000 });

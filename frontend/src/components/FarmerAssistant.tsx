@@ -108,7 +108,7 @@ export default function FarmerAssistant() {
     setLoading(true);
 
     try {
-      const res = await api.post('/farmer-chat', {
+      const res = await api.post('farmer-chat', {
         message: messageText,
         history: geminiHistory,
       });

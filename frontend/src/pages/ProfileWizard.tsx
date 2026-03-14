@@ -93,7 +93,7 @@ export default function ProfileWizard() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await api.get('/farmers/me');
+        const res = await api.get('farmers/me');
         setProfile((prev: any) => ({
           ...prev,
           ...res.data,
@@ -172,7 +172,7 @@ export default function ProfileWizard() {
         land_size_hectares: parseFloat(profile.land_size_hectares) || null,
         primary_crops: profile.primary_crops.split(',').map((c: string) => c.trim()).filter((c: string) => c !== ""),
       };
-      await api.put('/farmers/me', payload);
+      await api.put('farmers/me', payload);
       toast.success(t('wizard.toast_success'));
       setStep(step + 1);
     } catch (err: any) {
@@ -199,13 +199,13 @@ export default function ProfileWizard() {
       toast.info(t('wizard.verifying'));
       let res: any;
       if (docType === 'profile_picture') {
-        res = await api.post('/upload', formData);
+        res = await api.post('upload', formData);
       } else if (docType === 'aadhar') {
-        res = await api.post('/verify/aadhaar', formData);
+        res = await api.post('verify/aadhaar', formData);
       } else if (docType === 'pan') {
-        res = await api.post('/verify/pan', formData);
+        res = await api.post('verify/pan', formData);
       } else if (docType === 'landownership') {
-        res = await api.post('/verify/land-document', formData);
+        res = await api.post('verify/land-document', formData);
       }
 
       const isSuccess = docType === 'profile_picture' ? res.data.status === 'success' : res.data.message;

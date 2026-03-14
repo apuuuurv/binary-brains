@@ -40,7 +40,7 @@ export default function AdminPanel() {
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        const res = await api.get('/admin/check-admin');
+        const res = await api.get('admin/check-admin');
         if (res.data.is_admin) {
           setIsAdmin(true);
         } else {
@@ -75,7 +75,7 @@ export default function AdminPanel() {
         }
       };
 
-      await api.post('/admin/schemes/add', payload);
+      await api.post('admin/schemes/add', payload);
       toast.success("Scheme integrated successfully!");
       
       // Reset form
