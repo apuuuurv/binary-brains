@@ -1,0 +1,321 @@
+schemes:
+
+  - scheme_id: PM_KISAN
+    name: PM Kisan Samman Nidhi
+    source_url: "https://www.myscheme.gov.in/schemes/pmksy-pmkisan"
+    apply_url: "https://pmkisan.gov.in/"
+    documents_required:
+      - Aadhaar Card (mandatory)
+      - Land Records / Khasra / Khatauni
+      - Bank Passbook (linked to Aadhaar)
+      - Mobile Number linked to Aadhaar
+    application_process:
+      - Go to pmkisan.gov.in and click on 'Farmer Corner'
+      - Click 'New Farmer Registration' and enter your Aadhaar number
+      - Select your State and fill in all personal and bank details
+      - Submit the form — your application goes to the Agriculture Department for verification
+      - After approval, ₹2,000 installments are directly credited to your bank account every 4 months
+    benefit_calculation:
+      type: "flat_rate"
+      base_rate: 6000
+    conflicts_with:
+      - SMALL_FARMER_SUPPORT
+      - LOW_INCOME_FARMER_AID
+    rules:
+      - field: farmer_type
+        operator: "=="
+        value: small
+      - field: land_size
+        operator: "<="
+        value: 2
+      - field: income
+        operator: "<="
+        value: 200000
+
+  - scheme_id: DRIP_IRRIGATION
+    name: Drip Irrigation Subsidy
+    source_url: "https://www.myscheme.gov.in/schemes/pmksy-pdmc"
+    apply_url: "https://pmksy.gov.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Ownership Documents (7/12 Extract)
+      - Bank Passbook
+      - Quotation from approved Drip/Sprinkler System Supplier
+      - Proof of existing water source (borewell or canal)
+    application_process:
+      - Visit your local Block Agriculture Office or apply at pmksy.gov.in
+      - Submit application form along with land records and supplier quotation
+      - Agriculture officer conducts field verification of your land and water source
+      - Upon approval, purchase the drip system from the approved supplier
+      - Submit installation certificate — subsidy of up to ₹40,000/ha is credited to your bank account
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 40000
+      crop_multiplier_enabled: true
+    conflicts_with:
+      - LARGE_FARMER_IRRIGATION_SUPPORT
+    rules:
+      - field: irrigation
+        operator: "=="
+        value: no
+      - field: land_size
+        operator: ">"
+        value: 1
+      - field: farmer_type
+        operator: "in"
+        value:
+          - small
+          - medium
+
+  - scheme_id: CROP_INSURANCE
+    name: Pradhan Mantri Fasal Bima Yojana
+    source_url: "https://www.myscheme.gov.in/schemes/pmfby"
+    apply_url: "https://pmfby.gov.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Records (7/12 Extract or Khasra)
+      - Bank Passbook linked to Aadhaar
+      - Crop Sowing Certificate (from Patwari/Agriculture Dept)
+      - Mobile Number for OTP
+    application_process:
+      - Go to pmfby.gov.in and click 'Farmer Corner'
+      - Login using your Aadhaar number and mobile OTP
+      - Select your State, District, Season (Kharif/Rabi), and Crop
+      - Enter land area under the selected crop
+      - Pay the nominal premium (2% for Kharif, 1.5% for Rabi crops) — government pays the rest
+      - Note your Application Reference Number for future claims
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 15000
+      crop_multiplier_enabled: false
+    conflicts_with: []
+    rules:
+      - field: crop
+        operator: "in"
+        value:
+          - cotton
+          - wheat
+          - rice
+          - sugarcane
+      - field: land_size
+        operator: ">"
+        value: 0.5
+
+  - scheme_id: SMALL_FARMER_SUPPORT
+    name: Small Farmer Development Scheme
+    source_url: "https://www.myscheme.gov.in/schemes/sfds"
+    apply_url: "https://agricoop.nic.in/en/Agriculture"
+    documents_required:
+      - Aadhaar Card
+      - Land Records proving holding under 2 hectares
+      - Income Certificate (issued by Tehsildar)
+      - Bank Passbook
+      - Caste Certificate (if applying under SC/ST sub-category)
+    application_process:
+      - Visit the nearest Common Service Centre (CSC) or Block Agriculture Office
+      - Fill the application form for the Small and Marginal Farmer scheme
+      - Attach required documents and submit to the Agriculture Department
+      - A verification officer inspects your land details
+      - After approval, benefit of ₹5,000 is credited to your linked bank account
+    benefit_calculation:
+      type: "flat_rate"
+      base_rate: 5000
+    conflicts_with:
+      - PM_KISAN
+      - LOW_INCOME_FARMER_AID
+    rules:
+      - field: farmer_type
+        operator: "=="
+        value: small
+      - field: income
+        operator: "<="
+        value: 150000
+      - field: land_size
+        operator: "<="
+        value: 3
+
+  - scheme_id: MEDIUM_FARMER_MODERNIZATION
+    name: Medium Farmer Modernization Subsidy
+    source_url: "https://www.myscheme.gov.in/schemes/rkvy"
+    apply_url: "https://rkvy.nic.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Ownership Certificate (7/12)
+      - Project Proposal or Business Plan for farm modernization
+      - Bank Account Details
+      - Previous 2 years' income/revenue from farm (if available)
+    application_process:
+      - Go to rkvy.nic.in or visit the State Agriculture Department office
+      - Submit a project proposal (equipment purchase, storage, processing unit, etc.)
+      - Proposal reviewed by District Level Executive Committee (DLEC)
+      - Upon approval, sign agreement and commence the project
+      - Subsidy of up to ₹80,000/ha is released in installments as project milestones are completed
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 80000
+      crop_multiplier_enabled: true
+    conflicts_with: []
+    rules:
+      - field: farmer_type
+        operator: "=="
+        value: medium
+      - field: land_size
+        operator: ">"
+        value: 2
+      - field: income
+        operator: "<="
+        value: 300000
+
+  - scheme_id: LARGE_FARMER_IRRIGATION_SUPPORT
+    name: Large Farmer Irrigation Support
+    source_url: "https://www.myscheme.gov.in/schemes/pmksy"
+    apply_url: "https://pmksy.gov.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Records showing holding above 3 hectares (7/12)
+      - Water Source Documentation (existing natural water body or borewell proof)
+      - Bank Passbook
+      - Detailed irrigation plan / DPR from a registered engineer
+    application_process:
+      - Register at pmksy.gov.in under the PMKSY Har Khet Ko Pani component
+      - Submit land records and the detailed irrigation project report (DPR)
+      - State-level SLSC reviews and approves the project
+      - After approval, contractor empaneled by the department begins work
+      - On completion, subsidy of up to ₹1,00,000/ha is directly credited to your bank account
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 100000
+      crop_multiplier_enabled: true
+    conflicts_with:
+      - DRIP_IRRIGATION
+    rules:
+      - field: farmer_type
+        operator: "=="
+        value: large
+      - field: land_size
+        operator: ">"
+        value: 3
+      - field: irrigation
+        operator: "=="
+        value: no
+
+  - scheme_id: COTTON_SUPPORT_SCHEME
+    name: Cotton Farmer Support Scheme
+    source_url: "https://www.myscheme.gov.in/schemes/technology-mission-on-cotton"
+    apply_url: "https://texmin.nic.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Records with Cotton Cultivation area
+      - Crop Cultivation Certificate from Patwari
+      - Bank Passbook
+      - Membership in a Farmer Producer Organization (FPO) if applicable
+    application_process:
+      - Contact your nearest State Cotton Corporation or District Agriculture Officer
+      - Submit application along with proof of cotton cultivation and land records
+      - District-level verification of crop area and farming practices
+      - Approved farmers receive ₹25,000 as flat subsidy
+      - Amount credited to linked bank account within 30 days of verification
+    benefit_calculation:
+      type: "flat_rate"
+      base_rate: 25000
+    conflicts_with: []
+    rules:
+      - field: crop
+        operator: "=="
+        value: cotton
+      - field: farmer_type
+        operator: "in"
+        value:
+          - small
+          - medium
+      - field: land_size
+        operator: ">"
+        value: 1
+
+  - scheme_id: RICE_DEVELOPMENT_SCHEME
+    name: Rice Development Subsidy
+    source_url: "https://www.myscheme.gov.in/schemes/nfsm"
+    apply_url: "https://www.nfsm.gov.in/"
+    documents_required:
+      - Aadhaar Card
+      - Land Records (7/12) showing irrigated rice cultivation
+      - Proof of Irrigation Source (borewell, canal, etc.)
+      - Bank Passbook
+      - Last season's crop production record (if available)
+    application_process:
+      - Go to nfsm.gov.in or visit your Block Agriculture Officer
+      - Fill the NFSM-Rice application and submit land records
+      - Agriculture officer verifies your irrigated rice farm
+      - Approved farmers receive subsidized seeds, fertilizers, and farm inputs PLUS ₹12,000/ha cash subsidy
+      - Cash subsidy is transferred directly to your bank account after verification
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 12000
+      crop_multiplier_enabled: true
+    conflicts_with: []
+    rules:
+      - field: crop
+        operator: "=="
+        value: rice
+      - field: irrigation
+        operator: "=="
+        value: yes
+
+  - scheme_id: SUGARCANE_INCENTIVE
+    name: Sugarcane Farmer Incentive
+    source_url: "https://www.myscheme.gov.in/schemes/isopom"
+    apply_url: "https://agricoop.nic.in/en/Agriculture"
+    documents_required:
+      - Aadhaar Card
+      - Land Records (7/12) with sugarcane area above 2 hectares
+      - Supply Agreement / Linkage Letter from the nearest Sugar Mill
+      - Bank Passbook
+      - Crop Insurance Certificate (if enrolled under PMFBY)
+    application_process:
+      - Approach the nearest Sugar Mill Office with your supply agreement and land records
+      - Sugar Mill registers your farm with the State Sugar Department
+      - State Department verifies sugarcane area and FRP (Fair & Remunerative Price) compliance
+      - Incentive of ₹20,000/ha is calculated based on total area at the end of crushing season
+      - Amount credited to your bank account via Direct Benefit Transfer (DBT)
+    benefit_calculation:
+      type: "per_hectare_subsidy"
+      base_rate_per_ha: 20000
+      crop_multiplier_enabled: true
+    conflicts_with: []
+    rules:
+      - field: crop
+        operator: "=="
+        value: sugarcane
+      - field: land_size
+        operator: ">"
+        value: 2
+
+  - scheme_id: LOW_INCOME_FARMER_AID
+    name: Low Income Farmer Aid Program
+    source_url: "https://www.myscheme.gov.in/schemes/pmay-g"
+    apply_url: "https://pmayg.nic.in/"
+    documents_required:
+      - Aadhaar Card
+      - Income Certificate proving annual income below ₹1 lakh (from Tehsildar)
+      - BPL Ration Card or SECC 2011 survey inclusion proof
+      - Land Records (holding under 2 hectares)
+      - Bank Passbook linked to Aadhaar
+    application_process:
+      - Go to pmayg.nic.in and search your name in the 'Awaassoft' beneficiary list using your Aadhaar
+      - If listed, visit your local Gram Panchayat office and express interest
+      - Gram Sabha conducts community verification and prioritizes eligible farmers
+      - After approval by the District Programme Coordinator, ₹10,000 is released as first installment
+      - Total aid of ₹10,000 credited in up to 2 installments via DBT upon verification milestones
+    benefit_calculation:
+      type: "flat_rate"
+      base_rate: 10000
+    conflicts_with:
+      - PM_KISAN
+      - SMALL_FARMER_SUPPORT
+    rules:
+      - field: income
+        operator: "<="
+        value: 100000
+      - field: land_size
+        operator: "<="
+        value: 2

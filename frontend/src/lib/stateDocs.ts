@@ -1,0 +1,42 @@
+export const stateLandDocs: Record<string, string> = {
+  "Andhra Pradesh": "Adangal / Pahani / 1-B Record",
+  "Arunachal Pradesh": "Land Settlement Record",
+  "Assam": "Jamabandi / Patta",
+  "Bihar": "Jamabandi / Khata / Khasra",
+  "Chhattisgarh": "B1 / Khasra",
+  "Goa": "Form I & XIV",
+  "Gujarat": "7/12 Utara / VF-7 / VF-8A",
+  "Haryana": "Jamabandi / Fard",
+  "Himachal Pradesh": "Jamabandi",
+  "Jharkhand": "Khatian",
+  "Karnataka": "RTC (Record of Rights, Tenancy & Crops) / Pahani",
+  "Kerala": "Thandaper",
+  "Madhya Pradesh": "Khasra / Khatauni",
+  "Maharashtra": "7/12 Extract (Satbara Utara)",
+  "Manipur": "Patta",
+  "Meghalaya": "Land Record (District records)",
+  "Mizoram": "Patta",
+  "Nagaland": "Patta",
+  "Odisha": "RoR (Record of Rights)",
+  "Punjab": "Jamabandi",
+  "Rajasthan": "Jamabandi / Apna Khata",
+  "Sikkim": "RoR (Record of Rights)",
+  "Tamil Nadu": "Patta / Chitta",
+  "Telangana": "Pahani / Dharani Record",
+  "Tripura": "Khatian",
+  "Uttar Pradesh": "Khasra / Khatauni",
+  "Uttarakhand": "Khata / Khasra",
+  "West Bengal": "RoR / Dag Number",
+  "Andaman & Nicobar Islands": "Patta",
+  "Chandigarh": "Jamabandi",
+  "Dadra & Nagar Haveli and Daman & Diu": "Form I & XIV / Land Record",
+  "Delhi": "Khasra / Khatauni",
+  "Jammu & Kashmir": "Jamabandi",
+  "Ladakh": "Jamabandi",
+  "Lakshadweep": "Patta",
+  "Puducherry": "Patta"
+};
+
+export const getLandDocName = (state: string) => {
+  return stateLandDocs[state] || "Land Ownership Document";
+};
