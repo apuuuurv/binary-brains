@@ -43,14 +43,28 @@ app = FastAPI(
     lifespan=lifespan 
 )
 
+# Configure CORS
+# Allow both local development and production URLs
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "https://binary-brains-theta.vercel.app" # Explicit production URL
+]
+
+frontend_url_env = os.getenv("FRONTEND_URL")
+if frontend_url_env:
+    # Support comma-separated list of origins and strip trailing slashes
+    for origin in frontend_url_env.split(","):
+        clean_origin = origin.strip().rstrip("/")
+        if clean_origin and clean_origin not in allowed_origins:
+            allowed_origins.append(clean_origin)
+
+print(f"🌍 Configured CORS Origins: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        os.getenv("FRONTEND_URL", "http://localhost:5173")
-    ], 
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
