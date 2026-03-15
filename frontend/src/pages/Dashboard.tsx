@@ -917,7 +917,7 @@ export default function Dashboard() {
                             className={`uppercase bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-emerald-500 dark:text-white ${formData.pan_number?.length > 0 && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(formData.pan_number) ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                           />
                           {formData.pan_number?.length > 0 && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(formData.pan_number) && (
-                            <p className="text-[10px] text-red-500 mt-[-4px]">Invalid PAN format</p>
+                            <p className="text-[10px] text-red-500 mt-[-4px]"></p>
                           )}
                         </div>
                         <div className="grid gap-2">
